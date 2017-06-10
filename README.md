@@ -1,2 +1,5 @@
 # activation
-Activation functions for neural networks
+
+work in progress
+
+just testing neurons and activation functions
