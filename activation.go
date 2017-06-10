@@ -25,3 +25,7 @@ func PReLU(x, a float64) float64 {
 	}
 	return x * a
 }
+
+func Softplus(x float64) float64 {
+	return math.Log(1 + math.Exp(x))
+}
