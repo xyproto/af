@@ -50,18 +50,30 @@ func NewSimpleNeuron() *Neuron {
 	return &Neuron{
 		f:      defaultActivationFunction,
 		weight: 1.0,
-		inputs: []float64{1.0, 0.5, 0.0},
+		inputs: Vector{1.0, 0.5, 0.0},
 		output: 0.0,
 	}
 }
 
+// Length of a Vector
+func (v *Vector) Len() int {
+	return len(*v)
+}
+
+// Length of a Layer
+func (l *Layer) Len() int {
+	return len(*l)
+}
+
 func Length(v VectorOrLayer) int {
 	if layer, ok := v.(Layer); ok {
-		return len(layer)
+		return layer.Len()
 	} else if layer, ok := v.(*Layer); ok {
-		return len(*layer)
+		return layer.Len()
 	} else if vector, ok := v.(Vector); ok {
-		return len(vector)
+		return vector.Len()
+	} else if vector, ok := v.(*Vector); ok {
+		return vector.Len()
 	} else if floats, ok := v.([]float64); ok {
 		return len(floats)
 	}
@@ -73,6 +85,13 @@ func Length(v VectorOrLayer) int {
 // Create a new Neuron with the given inputs, the default activation function
 // and a random weight based on the size of the input vector or layer.
 func New(inputs VectorOrLayer) *Neuron {
+	if floats, ok := inputs.([]float64); ok {
+		inputs = Vector(floats)
+	} else if _, ok := inputs.(Layer); ok {
+	} else if _, ok := inputs.(Vector); ok {
+	} else {
+		log.Fatalf("Unrecognized inputs for New, neither Vector nor Layer: %T\n", inputs)
+	}
 	return &Neuron{
 		f:      defaultActivationFunction,
 		weight: RandomWeight(Length(inputs)),
@@ -98,10 +117,6 @@ func (n *Neuron) Process(stepsBack int) {
 		}
 	} else if vector, ok := n.inputs.(Vector); ok {
 		for _, x := range vector {
-			sum += x * n.weight
-		}
-	} else if floats, ok := n.inputs.([]float64); ok {
-		for _, x := range floats {
 			sum += x * n.weight
 		}
 	} else {
@@ -143,10 +158,10 @@ func (l *Layer) Process(stepsBack int) {
 	var wg sync.WaitGroup
 	wg.Add(len(*l))
 	for _, n := range *l {
-		go func() {
+		go func(n *Neuron) {
 			defer wg.Done()
 			n.Process(stepsBack)
-		}()
+		}(n)
 	}
 	wg.Wait()
 }
