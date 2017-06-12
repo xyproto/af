@@ -9,19 +9,13 @@ import (
 type NN []*neuron.Layer
 
 // New takes a vector of inputs or a layer of inputs
-func New(inputs neuron.VectorOrLayer, layersizes []int, outputsize int) *NN {
+func New(inputs neuron.VectorOrLayer, layersizes []int) *NN {
 	var nn NN
 	prevLayer := inputs
 	for _, layersize := range layersizes {
 		l := neuron.NewLayer(prevLayer, layersize)
 		nn = append(nn, l)
 		prevLayer = l
-	}
-	// Output layer, 1 largs
-	l := neuron.NewLayer(prevLayer, 1)
-	nn = append(nn, l)
-	if layersizes[len(layersizes)-1] != 1 {
-		fmt.Println("warning: last layer isn't of size 1")
 	}
 	return &nn
 }

@@ -66,7 +66,9 @@ func (l *Layer) Len() int {
 }
 
 func Length(v VectorOrLayer) int {
-	if layer, ok := v.(Layer); ok {
+	if floats, ok := v.([]float64); ok {
+		return len(floats)
+	} else if layer, ok := v.(Layer); ok {
 		return layer.Len()
 	} else if layer, ok := v.(*Layer); ok {
 		return layer.Len()
@@ -74,8 +76,6 @@ func Length(v VectorOrLayer) int {
 		return vector.Len()
 	} else if vector, ok := v.(*Vector); ok {
 		return vector.Len()
-	} else if floats, ok := v.([]float64); ok {
-		return len(floats)
 	}
 	// Should never happen
 	log.Fatalf("Unrecognized inputs for Length, neither Vector nor Layer: %T\n", v)
@@ -88,7 +88,9 @@ func New(inputs VectorOrLayer) *Neuron {
 	if floats, ok := inputs.([]float64); ok {
 		inputs = Vector(floats)
 	} else if _, ok := inputs.(Layer); ok {
+	} else if _, ok := inputs.(*Layer); ok {
 	} else if _, ok := inputs.(Vector); ok {
+	} else if _, ok := inputs.(*Vector); ok {
 	} else {
 		log.Fatalf("Unrecognized inputs for New, neither Vector nor Layer: %T\n", inputs)
 	}
