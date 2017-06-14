@@ -65,6 +65,22 @@ func (l *Layer) Len() int {
 	return len(*l)
 }
 
+func AnythingToVectorOrLayer(anything interface{}) VectorOrLayer {
+	if floats, ok := anything.([]float64); ok {
+		return Vector(floats)
+	} else if layer, ok := anything.(Layer); ok {
+		return Layer(layer)
+	} else if layer, ok := anything.(*Layer); ok {
+		return Layer(*layer)
+	} else if vector, ok := anything.(Vector); ok {
+		return Vector(vector)
+	} else if vector, ok := anything.(*Vector); ok {
+		return Vector(*vector)
+	}
+	log.Fatalf("AnythingToVectorOrLayer: unrecognized input, neither []float64, Vector or Layer: %T\n", anything)
+	return 0
+}
+
 func Length(v VectorOrLayer) int {
 	if floats, ok := v.([]float64); ok {
 		return len(floats)
@@ -78,7 +94,7 @@ func Length(v VectorOrLayer) int {
 		return vector.Len()
 	}
 	// Should never happen
-	log.Fatalf("Unrecognized inputs for Length, neither Vector nor Layer: %T\n", v)
+	log.Fatalf("Neuron.Length: unrecognized inputs, neither Vector nor Layer: %T\n", v)
 	return 0
 }
 
@@ -92,7 +108,7 @@ func New(inputs VectorOrLayer) *Neuron {
 	} else if _, ok := inputs.(Vector); ok {
 	} else if _, ok := inputs.(*Vector); ok {
 	} else {
-		log.Fatalf("Unrecognized inputs for New, neither Vector nor Layer: %T\n", inputs)
+		log.Fatalf("Neuron.New unrecognized inputs, neither Vector nor Layer: %T\n", inputs)
 	}
 	return &Neuron{
 		f:      defaultActivationFunction,
@@ -113,7 +129,15 @@ func New(inputs VectorOrLayer) *Neuron {
 func (n *Neuron) Process(stepsBack int) {
 	sum := 0.0
 	// Create a weighted sum
-	if layer, ok := n.inputs.(Layer); ok {
+	if layer, ok := n.inputs.(*Layer); ok {
+		for _, n := range *layer {
+			sum += n.output * n.weight
+		}
+	} else if vector, ok := n.inputs.(*Vector); ok {
+		for _, x := range *vector {
+			sum += x * n.weight
+		}
+	} else if layer, ok := n.inputs.(Layer); ok {
 		for _, n := range layer {
 			sum += n.output * n.weight
 		}
@@ -121,9 +145,13 @@ func (n *Neuron) Process(stepsBack int) {
 		for _, x := range vector {
 			sum += x * n.weight
 		}
+	} else if floats, ok := n.inputs.([]float64); ok {
+		for _, x := range floats {
+			sum += x * n.weight
+		}
 	} else {
 		// Should never happen
-		log.Fatalf("Unrecognized inputs for neuron, neither Vector nor Layer: %T\n", n.inputs)
+		log.Fatalf("Neuron.Process: unrecognized inputs, neither Vector nor Layer: %T\n", n.inputs)
 	}
 	if stepsBack >= 2 {
 		sum += n.prevPrevOutput
