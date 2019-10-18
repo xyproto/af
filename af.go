@@ -1,11 +1,16 @@
 package activation
 
 import (
+	"github.com/xyproto/swish"
 	"math"
 )
 
-func Sigmoid(x float64) float64 {
-	return 1.0 / (1.0 + math.Exp(-x))
+var Functions = [](func(float64) float64){
+	swish.Sigmoid, swish.Swish, swish.SoftPlus, Tanh, ReLU,
+}
+
+var Functions2 = [](func(float64, float64) float64){
+	PReLU,
 }
 
 func Tanh(x float64) float64 {
@@ -24,8 +29,4 @@ func PReLU(x, a float64) float64 {
 		return x
 	}
 	return x * a
-}
-
-func Softplus(x float64) float64 {
-	return math.Log(1 + math.Exp(x))
 }
