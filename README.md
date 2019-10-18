@@ -14,9 +14,12 @@ Provides the following activation functions, that take just one argument:
 * Inv (`-x`)
 * ReLU (`x >= 0 ? x : 0`)
 
+The `math` functions are included just for convenience.
+
 And also these functions, that take two arguments:
 
 * PReLU (`x >= 0 ? x : x * a`)
+
 
 ## Requirements
 
