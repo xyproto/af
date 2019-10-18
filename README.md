@@ -28,5 +28,5 @@ And also these functions, that take two arguments:
 ## General information
 
 * License: MIT
-* Version: 0.3.0
+* Version: 0.3.1
 * Author: Alexander F. Rødseth &lt;xyproto@archlinux.org&gt;
