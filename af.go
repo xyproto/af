@@ -5,17 +5,18 @@ import (
 	"math"
 )
 
-var Functions = [](func(float64) float64){
-	swish.Sigmoid, swish.Swish, swish.SoftPlus, Tanh, ReLU,
-}
-
-var Functions2 = [](func(float64, float64) float64){
-	PReLU,
-}
-
-func Tanh(x float64) float64 {
-	return math.Tanh(x)
-}
+// The swish package offers optimized Swish, Sigmoid
+// and SoftPlus activation functions
+var (
+	Sigmoid  = swish.Sigmoid
+	Swish    = swish.Swish
+	SoftPlus = swish.SoftPlus
+	Abs      = math.Abs
+	Tanh     = math.Tanh
+	Sin      = math.Sin
+	Cos      = math.Cos
+	Inv      = func(x float64) float64 { return -x }
+)
 
 func ReLU(x float64) float64 {
 	if x > 0 {

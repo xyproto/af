@@ -28,6 +28,6 @@ func TestTanh(t *testing.T) {
 	assertEqual(t, Tanh(0.0), 0.0)
 }
 
-func TestSoftplus(t *testing.T) {
-	assertEqual(t, Softplus(0.0), 0.6931471805599453)
+func TestSofPplus(t *testing.T) {
+	assertEqual(t, SoftPlus(0.0), 0.6931471805599453)
 }
