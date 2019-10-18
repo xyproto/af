@@ -31,5 +31,5 @@ One functions that takes two arguments is also included:
 ## General information
 
 * License: MIT
-* Version: 0.3.1
+* Version: 0.3.2
 * Author: Alexander F. Rødseth &lt;xyproto@archlinux.org&gt;
