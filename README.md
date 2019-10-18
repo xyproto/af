@@ -2,15 +2,12 @@
 
 Activation functions, intended for use in neural networks.
 
-These function aliases are included:
+These activation functions are included:
 
 * Swish (`x / (1 + exp(-x))`)
 * Sigmoid (`1 / (1 + exp(-x))`)
 * SoftPlus (`log(1 + exp(x))`)
 * Gaussian01 (`exp(-(x * x) / 2.0)`)
-
-These activation functions are provided:
-
 * Sin (`math.Sin(math.Pi * x)`)
 * Cos (`math.Cos(math.Pi * x)`)
 * Linear (`x`)
