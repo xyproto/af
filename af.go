@@ -13,18 +13,27 @@ var (
 	SoftPlus = swish.SoftPlus
 	Abs      = math.Abs
 	Tanh     = math.Tanh
-	Sin      = math.Sin
-	Cos      = math.Cos
-	Inv      = func(x float64) float64 { return -x }
 )
 
-// ReLU is the rectified linear unit.
-// `x >= 0 ? x : 0`
-func ReLU(x float64) float64 {
-	if x >= 0 {
+func Linear(x float64) float64 { return x }
+func Inv(x float64) float64    { return -x }
+func Sin(x float64) float64    { return math.Sin(math.Pi * x) }
+func Cosine(x float64) float64 { return math.Cos(math.Pi * x) }
+
+func ReLu(x float64) float64 {
+	if x < 0 {
+		return 0
+	} else {
 		return x
 	}
-	return 0
+}
+
+func UnsignedStep(x float64) float64 {
+	if x > 0 {
+		return 1
+	} else {
+		return 0
+	}
 }
 
 // PReLU is the parametric rectified linear unit.
