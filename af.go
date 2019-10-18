@@ -16,14 +16,15 @@ var (
 	Tanh       = math.Tanh
 )
 
-func Linear(x float64) float64 { return x }
-func Inv(x float64) float64    { return -x }
-func Sin(x float64) float64    { return math.Sin(math.Pi * x) }
-func Cos(x float64) float64    { return math.Cos(math.Pi * x) }
+func Linear(x float64) float64  { return x }
+func Inv(x float64) float64     { return -x }
+func Sin(x float64) float64     { return math.Sin(math.Pi * x) }
+func Cos(x float64) float64     { return math.Cos(math.Pi * x) }
+func Squared(x float64) float64 { return x * x }
 
 // Rectified linear unit
 // `x >= 0 ? x : 0`
-func ReLu(x float64) float64 {
+func ReLU(x float64) float64 {
 	if x >= 0 {
 		return x
 	} else {
