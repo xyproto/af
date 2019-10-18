@@ -2,28 +2,34 @@
 
 Activation functions, intended for use in neural networks.
 
-Provides the following activation functions, that take just one argument:
+These function aliases are included:
 
 * Sigmoid (optimized, from the [swish](https://github.com/xyproto/swish) package).
 * Swish (optimized, from the [swish](https://github.com/xyproto/swish) package).
 * SoftPlus (optimized, from the [swish](https://github.com/xyproto/swish) package).
-* Abs (`math.Abs`)
-* Tanh (`math.Tanh`)
-* Sin (`math.Sin`)
-* Cos (`math.Cos`)
+* Gaussian01 (optimized, from the [swish](https://github.com/xyproto/swish) package).
+
+These activation functions are provided:
+
+* Sin (`math.Sin(math.Pi * x)`)
+* Cos (`math.Cos(math.Pi * x)`)
+* Linear (`x`)
 * Inv (`-x`)
 * ReLU (`x >= 0 ? x : 0`)
+* Squared (`x * x`)
 
-The `math` functions are included just for convenience.
+These `math` functions are included just for convenience:
 
-And also these functions, that take two arguments:
+* Abs (`math.Abs`)
+* Tanh (`math.Tanh`)
+
+Functions that take two arguments are also included:
 
 * PReLU (`x >= 0 ? x : x * a`)
 
-
 ## Requirements
 
-* Require Go 1.11 or later.
+* Go 1.11 or later.
 
 ## General information
 
