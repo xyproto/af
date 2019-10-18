@@ -1,0 +1,5 @@
+# github.com/xyproto/activation v0.0.0-20170614090348-039b60566987
+github.com/xyproto/activation
+github.com/xyproto/activation/neuron
+# github.com/xyproto/swish v1.1.0
+github.com/xyproto/swish
