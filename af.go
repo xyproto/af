@@ -18,16 +18,20 @@ var (
 	Inv      = func(x float64) float64 { return -x }
 )
 
+// ReLU is the rectified linear unit.
+// `x >= 0 ? x : 0`
 func ReLU(x float64) float64 {
-	if x > 0 {
+	if x >= 0 {
 		return x
 	}
 	return 0
 }
 
+// PReLU is the parametric rectified linear unit.
+// `x >= 0 ? x : a * x`
 func PReLU(x, a float64) float64 {
-	if x > 0 {
+	if x >= 0 {
 		return x
 	}
-	return x * a
+	return a * x
 }

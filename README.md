@@ -12,11 +12,11 @@ Provides the following activation functions, that take just one argument:
 * Sin (`math.Sin`)
 * Cos (`math.Cos`)
 * Inv (`-x`)
-* ReLU (`x > 0 ? x : 0`)
+* ReLU (`x >= 0 ? x : 0`)
 
 And also these functions, that take two arguments:
 
-* PReLU (`x > 0 ? x : x * a`)
+* PReLU (`x >= 0 ? x : x * a`)
 
 ## Requirements
 
