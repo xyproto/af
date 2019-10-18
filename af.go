@@ -1,3 +1,4 @@
+// Package af provides several activation functions that can be used in neural networks
 package af
 
 import (
